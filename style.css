@@ -1,0 +1,82 @@
+html{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+body{
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0px;
+    background-color: #101010;
+}
+
+img{
+    width: 200px;
+    height: auto;
+}
+
+.list{
+    display: flex;
+}
+
+/* This will generate a 3D space in out container which is 1000px in z,x and y axis */
+.list{
+	transform-style: preserve-3d;
+	transform: perspective(1000px);
+}
+
+/* By default the items have a brightness of 0 */
+.list .item{
+	transition: .5s;
+	filter: brightness(0);
+    margin: 10px;
+}
+
+/* When a user hovers over the item the brightness is set to 1 */
+.list .item:hover{
+	filter:brightness(1);
+	/* When a user hovers over the item it will move 200px on the Z axis */
+	transform: translateZ(200px);
+}
+
+/* When a user hovers over an item this will apply the brightness to the next element
+on it's right */
+.list .item:hover + .item{
+	filter: brightness(0.6);
+	transform: translateZ(150px) rotateY(40deg);
+}
+
+/* When a user hovers over the item this will find the second element on the right 
+The asteris represents a position in the div order*/
+.list .item:hover + * + *{
+	filter: brightness(0.4);
+	transform: translateZ(70px) rotateY(20deg);
+}
+
+/* This targets the 3rd item in the div order */
+.list .item:hover + * + * + * {
+	filter: brightness(0.2);
+	transform: translateZ(30px) rotateY(10deg);
+}
+
+/* This will use a conditon which in this case if the item is hovered on find
+the item*/
+.list .item:has(+ *:hover){
+	filter: brightness(0.6);
+	transform: translateZ(150px) rotateY(-40deg);
+}
+
+.list .item:has(+ * + *:hover){
+	filter: brightness(0.4);
+	transform: translateZ(70px) rotateY(-20deg);
+}
+
+.list .item:has(+ * + * + *:hover){
+	filter: brightness(0.2);
+	transform: translateZ(30px) rotateY(-10deg);
+}
